@@ -274,6 +274,7 @@ GameObject:
   m_Component:
   - component: {fileID: 528010248}
   - component: {fileID: 528010249}
+  - component: {fileID: 528010250}
   m_Layer: 0
   m_Name: Line
   m_TagString: Untagged
@@ -287,13 +288,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 528010247}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.27, y: -1.3, z: -0.0027356294}
+  m_LocalRotation: {x: -0, y: -0, z: -0.98283225, w: 0.18450153}
+  m_LocalPosition: {x: 2.16, y: 0.04, z: -0.0027356294}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -158.73601}
 --- !u!68 &528010249
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -304,13 +305,31 @@ EdgeCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
   - {x: 0, y: 0}
-  - {x: 5, y: -2}
+  - {x: 5, y: 0}
+--- !u!251 &528010250
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 528010247}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
 --- !u!1 &1081166230
 GameObject:
   m_ObjectHideFlags: 0
