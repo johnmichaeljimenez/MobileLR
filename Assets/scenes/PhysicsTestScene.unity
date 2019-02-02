@@ -214,6 +214,12 @@ Prefab:
       propertyPath: m_Name
       value: undo
       objectReference: {fileID: 0}
+    - target: {fileID: 114552153611679838, guid: aa33455d9b9bb2a448561072ba912b57,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1465681988d38104f98c6a7842470e09,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa33455d9b9bb2a448561072ba912b57, type: 2}
   m_IsPrefabAsset: 0
@@ -344,6 +350,12 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114552153611679838, guid: aa33455d9b9bb2a448561072ba912b57,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 317fa71be2eacb240899ba5c5ef435cc,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa33455d9b9bb2a448561072ba912b57, type: 2}
   m_IsPrefabAsset: 0
@@ -874,6 +886,12 @@ Prefab:
       propertyPath: m_Name
       value: stop
       objectReference: {fileID: 0}
+    - target: {fileID: 114552153611679838, guid: aa33455d9b9bb2a448561072ba912b57,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6c21e4107cca53f478fcd5aac331fa37,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa33455d9b9bb2a448561072ba912b57, type: 2}
   m_IsPrefabAsset: 0
@@ -1009,6 +1027,12 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1644938240}
+    - target: {fileID: 114552153611679838, guid: aa33455d9b9bb2a448561072ba912b57,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bce17f7742964b04ca52d1936975a283,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa33455d9b9bb2a448561072ba912b57, type: 2}
   m_IsPrefabAsset: 0
@@ -1327,6 +1351,12 @@ Prefab:
       propertyPath: m_Name
       value: camera
       objectReference: {fileID: 0}
+    - target: {fileID: 114552153611679838, guid: aa33455d9b9bb2a448561072ba912b57,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d3ac264c8b2119e40bf2b18ec9e5470b,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa33455d9b9bb2a448561072ba912b57, type: 2}
   m_IsPrefabAsset: 0
@@ -1519,6 +1549,12 @@ Prefab:
       propertyPath: m_Name
       value: load
       objectReference: {fileID: 0}
+    - target: {fileID: 114552153611679838, guid: aa33455d9b9bb2a448561072ba912b57,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9b0812fb365a21a4e8dc5e34670a8622,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa33455d9b9bb2a448561072ba912b57, type: 2}
   m_IsPrefabAsset: 0
@@ -1808,7 +1844,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -10, y: 10}
+  m_AnchoredPosition: {x: -30, y: 10}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &955095076
@@ -2505,6 +2541,12 @@ Prefab:
       propertyPath: m_Name
       value: save
       objectReference: {fileID: 0}
+    - target: {fileID: 114552153611679838, guid: aa33455d9b9bb2a448561072ba912b57,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 03c07c0d7dafa174d8413389b34a25d8,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa33455d9b9bb2a448561072ba912b57, type: 2}
   m_IsPrefabAsset: 0
@@ -2830,7 +2872,9 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -1.7326503, y: 5.0662856}
+  - {x: -1.5669537, y: 8.512765}
+  - {x: -2.0971813, y: 6.5575514}
+  - {x: -1.898346, y: 4.635476}
   - {x: -0.25186443, y: 1.0427263}
   - {x: 2.409886, y: -0.22189498}
   - {x: 5.6481156, y: 0.5013578}
@@ -3056,6 +3100,12 @@ Prefab:
       propertyPath: m_Name
       value: erase
       objectReference: {fileID: 0}
+    - target: {fileID: 114552153611679838, guid: aa33455d9b9bb2a448561072ba912b57,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5f91c4cdf8da89b4583ac7aac9861891,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa33455d9b9bb2a448561072ba912b57, type: 2}
   m_IsPrefabAsset: 0

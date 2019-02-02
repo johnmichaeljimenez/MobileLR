@@ -46,6 +46,9 @@ public class Rider : MonoBehaviour {
 
 	void FixedUpdate()
 	{
+		if (PlaybackManager.isPlaying != PlaybackManager.PlayStates.Playing)
+			return;
+
 		if (acceleration > 0)
 			acceleration -= 1f;
 		else
@@ -58,25 +61,33 @@ public class Rider : MonoBehaviour {
 		switch (p)
 		{
 			case PlaybackManager.PlayStates.Stop:
-				rigidbody.velocity = Vector2.zero;
-				rigidbody.angularVelocity = 0;
-				rigidbody.bodyType = RigidbodyType2D.Static;
-				acceleration = 0;
+				// rigidbody.velocity = Vector2.zero;
+				// rigidbody.angularVelocity = 0;
+				// rigidbody.bodyType = RigidbodyType2D.Static;
+				// acceleration = 0;
 
+				Time.timeScale = 0;
 				transform.position = Vector3.zero;
 				transform.rotation = Quaternion.identity;
-				prevAngVelocity = 0;
-				prevVelocity = Vector2.zero;
+				// prevAngVelocity = 0;
+				// prevVelocity = Vector2.zero;
 				break;
 			case PlaybackManager.PlayStates.Playing:
-				rigidbody.bodyType = RigidbodyType2D.Dynamic;
-				rigidbody.velocity = prevVelocity;
-				rigidbody.angularVelocity = prevAngVelocity;
+				// rigidbody.bodyType = RigidbodyType2D.Dynamic;
+				// // rigidbody.AddForce(prevVelocity); // * rigidbody.mass / Time.fixedDeltaTime
+				// // rigidbody.AddTorque(prevAngVelocity);
+				// rigidbody.WakeUp();
+				// rigidbody.velocity = prevVelocity;
+				// rigidbody.angularVelocity = prevAngVelocity;
+				Time.timeScale = 1;
 				break;
 			case PlaybackManager.PlayStates.Pause:
-				prevVelocity = rigidbody.velocity;
-				prevAngVelocity = rigidbody.angularVelocity;
-				rigidbody.bodyType = RigidbodyType2D.Static;
+				// prevVelocity = rigidbody.velocity;
+				// prevAngVelocity = rigidbody.angularVelocity;
+				// rigidbody.velocity = Vector2.zero;
+				// rigidbody.angularVelocity = 0;
+				// rigidbody.bodyType = RigidbodyType2D.Static;
+				Time.timeScale = 0;
 				break;
 			default:
 				break;
@@ -85,6 +96,9 @@ public class Rider : MonoBehaviour {
 
 	void OnCollisionStay2D(Collision2D c)
 	{
+		if (PlaybackManager.isPlaying != PlaybackManager.PlayStates.Playing)
+			return;
+
 		EdgeCollider2D e = c.gameObject.GetComponent<EdgeCollider2D>();
 		Accelerator a = c.gameObject.GetComponent<Accelerator>();
 
