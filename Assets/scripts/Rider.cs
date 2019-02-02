@@ -28,6 +28,21 @@ public class Rider : MonoBehaviour {
 			acceleration = 0;
 	}
 
+	public void SetPlayback(PlaybackManager.PlayStates p)
+	{
+		switch (p)
+		{
+			case PlaybackManager.PlayStates.Stop:
+				break;
+			case PlaybackManager.PlayStates.Playing:
+				break;
+			case PlaybackManager.PlayStates.Pause:
+				break;
+			default:
+				break;
+		}
+	}
+
 	void OnCollisionStay2D(Collision2D c)
 	{
 		EdgeCollider2D e = c.gameObject.GetComponent<EdgeCollider2D>();
