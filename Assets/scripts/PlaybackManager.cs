@@ -25,7 +25,10 @@ public class PlaybackManager : MonoBehaviour {
 
 		set{
 			if (_isPlaying != value)
+			{
 				_isPlaying = value;
+				main.OnPlaybackChange();
+			}
 		}
 	}
 
@@ -37,7 +40,14 @@ public class PlaybackManager : MonoBehaviour {
 
 	void OnPlaybackChange()
 	{
-		
+		print("playback change");
+		Rider.main.SetPlayback(isPlaying);
+		EditorButton.SetCurrent(EditorButton.current);
+	}
+
+	public void SetPlayback(PlayStates p)
+	{
+		isPlaying = p;
 	}
 
 	public enum PlayStates

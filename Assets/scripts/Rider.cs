@@ -4,14 +4,38 @@ using UnityEngine;
 
 public class Rider : MonoBehaviour {
 
+	private static Rider _main;
+	public static Rider main
+	{
+		get{
+			if (!_main)
+				_main = GameObject.FindObjectOfType<Rider>();
+
+			return _main;
+		}
+	}
+
 	public float accelerationAmount = 12;
 
-	Rigidbody2D rigidbody;
+	Rigidbody2D _r2;
+	Rigidbody2D rigidbody
+	{
+		get{
+			if (!_r2)
+			{
+				_r2 = GetComponent<Rigidbody2D>();
+			}
+
+			return _r2;
+		}
+	}
+
+	Vector2 prevVelocity;
+	float prevAngVelocity;
 
 	float acceleration;
 	// Use this for initialization
 	void Start () {
-		rigidbody = GetComponent<Rigidbody2D>();
 		acceleration = 0;
 	}
 	
@@ -30,13 +54,29 @@ public class Rider : MonoBehaviour {
 
 	public void SetPlayback(PlaybackManager.PlayStates p)
 	{
+		print(p.ToString());
 		switch (p)
 		{
 			case PlaybackManager.PlayStates.Stop:
+				rigidbody.velocity = Vector2.zero;
+				rigidbody.angularVelocity = 0;
+				rigidbody.bodyType = RigidbodyType2D.Static;
+				acceleration = 0;
+
+				transform.position = Vector3.zero;
+				transform.rotation = Quaternion.identity;
+				prevAngVelocity = 0;
+				prevVelocity = Vector2.zero;
 				break;
 			case PlaybackManager.PlayStates.Playing:
+				rigidbody.bodyType = RigidbodyType2D.Dynamic;
+				rigidbody.velocity = prevVelocity;
+				rigidbody.angularVelocity = prevAngVelocity;
 				break;
 			case PlaybackManager.PlayStates.Pause:
+				prevVelocity = rigidbody.velocity;
+				prevAngVelocity = rigidbody.angularVelocity;
+				rigidbody.bodyType = RigidbodyType2D.Static;
 				break;
 			default:
 				break;

@@ -18,6 +18,9 @@ public class EditorButton : MonoBehaviour {
 
 	public static void SetCurrent(Button e)
 	{
+		if (!current && !e)
+			return;
+
 		if (current)
 		{
 			current.GetComponent<Image>().color = new Color(1, 1, 1);
@@ -25,6 +28,9 @@ public class EditorButton : MonoBehaviour {
 
 		current = e;
 		current.GetComponent<Image>().color = new Color(0.8f, 0.8f, 0.8f);
+
+		bool ok = PlaybackManager.isPlaying != PlaybackManager.PlayStates.Playing;
+		current.interactable = ok;
 	}
 
 }
