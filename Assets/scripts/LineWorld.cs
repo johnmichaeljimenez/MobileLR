@@ -34,9 +34,23 @@ public class LineWorld : MonoBehaviour {
 		DrawLines();
 	}
 
-	public void RemoveLine()
+	public void RemoveLine(Vector2 erasePoint, float radius)
 	{
+		for (int i = lines.Count - 1; i >= 0 ; i--)
+		{
+			Line l = lines[i];
+			Vector3 v1 = Camera.main.WorldToScreenPoint(l.start);
+			Vector3 v2 = Camera.main.WorldToScreenPoint(l.end);
+			bool e = Utils.BetweenLineAndCircle(erasePoint, radius, v1, v2);
 
+			if (!e)
+				continue;
+
+			lines.Remove(l);
+			Destroy(transform.GetChild(i).gameObject);
+		}
+
+		DrawLines();
 	}
 
 	public void ClearLine()

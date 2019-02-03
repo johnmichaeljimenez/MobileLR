@@ -21,60 +21,33 @@ public class LineEditor : MonoBehaviour
 
     LineEditMode lineEditMode;
 
-	Vector3 linePos1, linePos2;
+    Vector3 linePos1, linePos2;
     LineDrawState lineDrawState;
+
+
+
+    public float eraseRadius = 20;
 
     void Awake()
     {
-		TouchKit.instance.debugDrawBoundaryFrames = true;
+        TouchKit.instance.debugDrawBoundaryFrames = true;
 
         SetEditMode(LineEditMode.DrawNormal);
-
-        //pan camera
-        var panRecognizer = new TKPanRecognizer();
-        panRecognizer.gestureRecognizedEvent += (r) =>
-        {
-			OnPanCamera(r);
-        };
-		TouchKit.addGestureRecognizer(panRecognizer);
-
-        //pinch zoom
-        var pinchRecognizer = new TKPinchRecognizer();
-        pinchRecognizer.gestureRecognizedEvent += (r) =>
-        {
-            OnZoomCamera(r);
-        };
-        TouchKit.addGestureRecognizer(pinchRecognizer);
-
-        //draw
-        var drawRecognizer = new TKButtonRecognizer(new TKRect(0, 0, Screen.width, Screen.height));
-        drawRecognizer.zIndex = 0;
-        drawRecognizer.onSelectedEvent += (r) =>
-        {
-            print(r);
-            OnDrawLineStart(r);
-        };
-        drawRecognizer.onTouchUpInsideEvent += (r) =>
-        {
-            print(r);
-            OnDrawLineEnd(r);
-        };
-        TouchKit.addGestureRecognizer(drawRecognizer);
     }
 
-	public void OnPanCamera(TKPanRecognizer t)
-	{
+    public void OnPanCamera(TKPanRecognizer t)
+    {
         if (lineEditMode != LineEditMode.Camera)
             return;
 
-        CameraManager.main.PanCamera(-t.deltaTranslation*CameraManager.main.panSpeed);
-	}
+        CameraManager.main.PanCamera(-t.deltaTranslation * CameraManager.main.panSpeed);
+    }
 
     public void OnDrawLineStart(TKButtonRecognizer t)
     {
         if (lineEditMode == LineEditMode.Camera || lineEditMode == LineEditMode.Erase)
             return;
-            
+
 
         if (lineDrawState != LineDrawState.Start)
         {
@@ -83,7 +56,7 @@ public class LineEditor : MonoBehaviour
             return;
         }
     }
-    
+
     public void OnDrawLineEnd(TKButtonRecognizer t)
     {
         if (lineEditMode == LineEditMode.Camera || lineEditMode == LineEditMode.Erase)
@@ -95,7 +68,7 @@ public class LineEditor : MonoBehaviour
         linePos2 = t.touchLocation();
         lineDrawState = LineDrawState.None;
 
-        if ((linePos1-linePos2).magnitude <= 10)
+        if ((linePos1 - linePos2).magnitude <= 10)
             return;
 
         linePos1 = Camera.main.ScreenToWorldPoint(linePos1);
@@ -103,10 +76,10 @@ public class LineEditor : MonoBehaviour
 
         LineWorld.main.AddLine(linePos1, linePos2);
     }
-    
 
-	public void OnZoomCamera(TKPinchRecognizer t)
-	{
+
+    public void OnZoomCamera(TKPinchRecognizer t)
+    {
         if (lineEditMode != LineEditMode.Camera)
             return;
 
@@ -114,8 +87,16 @@ public class LineEditor : MonoBehaviour
             return;
 
         print(t.deltaScale);
-        CameraManager.main.ZoomCamera(-t.deltaScale*CameraManager.main.zoomSpeed);
-	}
+        CameraManager.main.ZoomCamera(-t.deltaScale * CameraManager.main.zoomSpeed);
+    }
+
+    public void Erase(TKTapRecognizer r)
+    {
+        if (lineEditMode != LineEditMode.Erase)
+            return;
+
+        LineWorld.main.RemoveLine(r.touchLocation(), eraseRadius);
+    }
 
     void Update()
     {
@@ -127,6 +108,65 @@ public class LineEditor : MonoBehaviour
         lineEditMode = e;
         HUD.main.SetCurrentTool(e);
         lineDrawState = LineDrawState.None;
+
+        SetInputSystem();
+    }
+
+    public void SetInputSystem()
+    {
+        TouchKit.removeAllGestureRecognizers();
+
+        if (PlaybackManager.isPlaying == PlaybackManager.PlayStates.Playing)
+            return;
+
+        if (lineEditMode == LineEditMode.Camera)
+        {
+            //pan camera
+            var panRecognizer = new TKPanRecognizer();
+            panRecognizer.gestureRecognizedEvent += (r) =>
+            {
+                OnPanCamera(r);
+            };
+            TouchKit.addGestureRecognizer(panRecognizer);
+
+            //pinch zoom
+            var pinchRecognizer = new TKPinchRecognizer();
+            pinchRecognizer.gestureRecognizedEvent += (r) =>
+            {
+                OnZoomCamera(r);
+            };
+            TouchKit.addGestureRecognizer(pinchRecognizer);
+        }
+        else if (lineEditMode == LineEditMode.Erase)
+        {
+
+
+            //eraser
+            var tapRecognizer = new TKTapRecognizer();
+            tapRecognizer.zIndex = 2;
+            tapRecognizer.numberOfTapsRequired = 1;
+            tapRecognizer.gestureRecognizedEvent += (r) =>
+            {
+                print(r);
+                Erase(r);
+            };
+            TouchKit.addGestureRecognizer(tapRecognizer);
+        }
+        else
+        {
+            //draw
+            var drawRecognizer = new TKButtonRecognizer(new TKRect(0, 0, Screen.width, Screen.height));
+            drawRecognizer.zIndex = 0;
+            drawRecognizer.onSelectedEvent += (r) =>
+            {
+                OnDrawLineStart(r);
+            };
+            drawRecognizer.onTouchUpInsideEvent += (r) =>
+            {
+                OnDrawLineEnd(r);
+            };
+            TouchKit.addGestureRecognizer(drawRecognizer);
+        }
     }
 
     public enum LineEditMode
