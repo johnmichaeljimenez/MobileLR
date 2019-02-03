@@ -17,6 +17,8 @@ public class Rider : MonoBehaviour {
 
 	public float accelerationAmount = 12;
 
+	public ParticleSystem collisionEffect;
+
 	Rigidbody2D _r2;
 	Rigidbody2D rigidbody
 	{
@@ -33,6 +35,7 @@ public class Rider : MonoBehaviour {
 	Vector2 prevVelocity;
 	float prevAngVelocity;
 
+	[SerializeField]
 	float acceleration;
 	// Use this for initialization
 	void Start () {
@@ -61,10 +64,10 @@ public class Rider : MonoBehaviour {
 		switch (p)
 		{
 			case PlaybackManager.PlayStates.Stop:
-				// rigidbody.velocity = Vector2.zero;
-				// rigidbody.angularVelocity = 0;
+				rigidbody.velocity = Vector2.zero;
+				rigidbody.angularVelocity = 0;
 				// rigidbody.bodyType = RigidbodyType2D.Static;
-				// acceleration = 0;
+				acceleration = 0;
 
 				Time.timeScale = 0;
 				transform.position = Vector3.zero;
@@ -110,7 +113,15 @@ public class Rider : MonoBehaviour {
 			Vector3 temp = Vector3.Cross(c.contacts[0].normal, transform.right);
 		    Vector3 myDirection = Vector3.Cross(temp, c.contacts[0].normal);
 
-			rigidbody.AddForce(myDirection * acceleration, ForceMode2D.Force);
+			rigidbody.AddForce(myDirection * accelerationAmount, ForceMode2D.Force);
 		}
+	}
+
+	void OnCollisionEnter2D(Collision2D c)
+	{
+		if (PlaybackManager.isPlaying != PlaybackManager.PlayStates.Playing)
+			return;
+
+		collisionEffect.Play();
 	}
 }
