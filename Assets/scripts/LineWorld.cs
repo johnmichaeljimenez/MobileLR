@@ -27,6 +27,23 @@ public class LineWorld : MonoBehaviour {
 		
 	}
 
+	public void AddLine(Vector2 v1, Vector3 v2)
+	{
+		Line l = new Line(v1, v2);
+		lines.Add(l);
+		DrawLines();
+	}
+
+	public void RemoveLine()
+	{
+
+	}
+
+	public void ClearLine()
+	{
+
+	}
+
 	public void DrawLines()
 	{
 		for (int i = transform.childCount - 1; i >= 0 ; i--)

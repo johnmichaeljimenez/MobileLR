@@ -23,6 +23,7 @@ public class CameraManager : MonoBehaviour {
 
 	public Rigidbody2D target;
 	Camera cam;
+
 	void Start()
 	{
 		cam = Camera.main;
