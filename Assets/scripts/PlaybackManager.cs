@@ -43,6 +43,17 @@ public class PlaybackManager : MonoBehaviour {
 		print("playback change");
 		Rider.main.SetPlayback(isPlaying);
 		EditorButton.SetCurrent(EditorButton.current);
+
+		switch (isPlaying)
+		{
+			case PlayStates.Playing:
+				break;
+			case PlayStates.Pause:
+				CameraManager.main.PauseCamera();
+				break;
+			case PlayStates.Stop:
+				break;
+		}
 	}
 
 	public void SetPlayback(PlayStates p)

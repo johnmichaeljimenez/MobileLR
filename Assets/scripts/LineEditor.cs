@@ -26,30 +26,40 @@ public class LineEditor : MonoBehaviour
 
         SetEditMode(LineEditMode.DrawNormal);
 
-        var recognizer = new TKPanRecognizer();
-
-        recognizer.gestureRecognizedEvent += (r) =>
+        var panRecognizer = new TKPanRecognizer();
+        panRecognizer.gestureRecognizedEvent += (r) =>
         {
-			OnPressStart(r.touchLocation());
+			OnPanCamera(r);
         };
+		TouchKit.addGestureRecognizer(panRecognizer);
 
-        // continuous gestures have a complete event so that we know when they are done recognizing
-        recognizer.gestureCompleteEvent += r =>
+        var pinchRecognizer = new TKPinchRecognizer();
+        pinchRecognizer.gestureRecognizedEvent += (r) =>
         {
-			OnPressEnd(r.touchLocation());
+            OnZoomCamera(r);
         };
-
-		TouchKit.addGestureRecognizer(recognizer);
+        TouchKit.addGestureRecognizer(pinchRecognizer);
     }
 
-	public void OnPressStart(Vector2 point)
+	public void OnPanCamera(TKPanRecognizer t)
 	{
-		print(point.ToString());
-	}
+        if (lineEditMode != LineEditMode.Camera)
+            return;
 
-	public void OnPressEnd(Vector2 point)
+        CameraManager.main.PanCamera(-t.deltaTranslation*CameraManager.main.panSpeed);
+	}
+    
+
+	public void OnZoomCamera(TKPinchRecognizer t)
 	{
-		print(point.ToString());
+        // if (lineEditMode != LineEditMode.Camera)
+        //     return;
+
+        if (Mathf.Abs(t.deltaScale) <= 0)
+            return;
+
+        print(t.deltaScale);
+        CameraManager.main.ZoomCamera(-t.deltaScale*CameraManager.main.zoomSpeed);
 	}
 
     void Update()

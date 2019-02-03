@@ -2013,6 +2013,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minFov: 3
   maxFov: 8
+  panSpeed: 0.03
+  zoomSpeed: 3
   target: {fileID: 1500878019}
 --- !u!1 &1488116145
 GameObject:
