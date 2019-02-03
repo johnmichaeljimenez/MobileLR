@@ -5,7 +5,7 @@ This is a clone of Line Rider using Unity for Android platform.
 
 Target features:
 
--Physics simulation
--Different line types
--Online sharing of creations
--Supports wide range of Android devices
+- Physics simulation
+- Different line types
+- Online sharing of creations
+- Supports wide range of Android devices
