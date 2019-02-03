@@ -50,7 +50,7 @@ public class LineWorld : MonoBehaviour {
 			Destroy(transform.GetChild(i).gameObject);
 		}
 
-		DrawLines();
+		HUD.main.ShowEraser(erasePoint);
 	}
 
 	public void ClearLine()

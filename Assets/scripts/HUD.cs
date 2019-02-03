@@ -34,10 +34,14 @@ public class HUD : MonoBehaviour
     public Button load;
     public Button save;
 
+    public Transform toolGroup;
+
+    public Transform eraserIndicator;
+
 
     void Start()
     {
-		
+		eraserIndicator.gameObject.SetActive(false);
 
 
 		play.SetOnClickListener(()=>{ PlaybackManager.main.SetPlayback(PlaybackManager.PlayStates.Playing); });
@@ -71,5 +75,18 @@ public class HUD : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public void ShowEraser(Vector3 p)
+    {
+        StartCoroutine(IEEraser(p));
+    }
+
+    IEnumerator IEEraser(Vector3 p)
+    {
+        eraserIndicator.position = p;
+        eraserIndicator.gameObject.SetActive(true);
+        yield return new WaitForSecondsRealtime(0.1f);
+        eraserIndicator.gameObject.SetActive(false);
     }
 }

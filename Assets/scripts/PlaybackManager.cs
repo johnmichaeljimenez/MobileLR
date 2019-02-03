@@ -59,6 +59,7 @@ public class PlaybackManager : MonoBehaviour {
 	public void SetPlayback(PlayStates p)
 	{
 		isPlaying = p;
+		HUD.main.toolGroup.gameObject.SetActive(p != PlayStates.Playing);
 	}
 
 	public enum PlayStates

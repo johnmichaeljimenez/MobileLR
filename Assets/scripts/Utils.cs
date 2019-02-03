@@ -42,16 +42,20 @@ public static class Utils
             t = -b / (2 * a);
             intersection1 = new Vector2(point1.x + t * dx, point1.y + t * dy);
             intersection2 = Vector2.zero;
-            return true;
+            return false;
         }
 
         // Two solutions.
         t = (float)((-b + Mathf.Sqrt(determinate)) / (2 * a));
+		if (t >= 0 && t <= 1)
+			return true;
         intersection1 = new Vector2(point1.x + t * dx, point1.y + t * dy);
         t = (float)((-b - Mathf.Sqrt(determinate)) / (2 * a));
+		if (t >= 0 && t <= 1)
+			return true;
         intersection2 = new Vector2(point1.x + t * dx, point1.y + t * dy);
 
-        return true;
+        return false;
     }
 
 }

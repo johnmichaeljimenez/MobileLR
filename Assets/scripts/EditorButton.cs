@@ -9,8 +9,6 @@ public class EditorButton : MonoBehaviour {
 
 	public LineEditor.LineEditMode toolType;
 
-	public Shadow shadow;
-
 	void Start()
 	{
 		GetComponent<Button>().SetOnClickListener(()=>{
@@ -26,15 +24,13 @@ public class EditorButton : MonoBehaviour {
 		if (current)
 		{
 			current.GetComponent<Image>().color = new Color(1, 1, 1);
-			current.GetComponent<EditorButton>().shadow.enabled = false;
 		}
 
 		current = e;
-		current.GetComponent<Image>().color = new Color(0.8f, 0.8f, 0.8f);
+		current.GetComponent<Image>().color = new Color(1,1,1,0.8f);
 
 		bool ok = PlaybackManager.isPlaying != PlaybackManager.PlayStates.Playing;
 		current.interactable = ok;
-		current.GetComponent<EditorButton>().shadow.enabled = ok;
 	}
 
 }
