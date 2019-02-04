@@ -17,7 +17,7 @@ public class LineWorld : MonoBehaviour {
 
 	public List<Line> lines;
 
-	public GameObject linePrefab;
+	public GameObject[] linePrefabs;
 
 	void Start () {
 		DrawLines();
@@ -27,9 +27,10 @@ public class LineWorld : MonoBehaviour {
 		
 	}
 
-	public void AddLine(Vector2 v1, Vector3 v2)
+	public void AddLine(Vector2 v1, Vector3 v2, LineType.LineTypes t)
 	{
 		Line l = new Line(v1, v2);
+		l.lineType = t;
 		lines.Add(l);
 		DrawLines();
 	}
@@ -69,7 +70,7 @@ public class LineWorld : MonoBehaviour {
 		{
 			i.Compute();
 
-			GameObject g = Instantiate(linePrefab);
+			GameObject g = Instantiate(linePrefabs[(int)i.lineType]);
 			g.transform.SetParent(transform, false);
 			g.transform.localPosition = i.midPoint;
 			g.transform.localEulerAngles = Vector3.forward * i.rotation;
@@ -91,6 +92,8 @@ public class Line
 
 	public float rotation;
 	public float length;
+
+	public LineType.LineTypes lineType;
 
 
 	public Line(Vector2 v1, Vector2 v2)

@@ -20,6 +20,7 @@ public class LineEditor : MonoBehaviour
     }
 
     LineEditMode lineEditMode;
+    LineType.LineTypes lineType;
 
     Vector3 linePos1, linePos2;
     LineDrawState lineDrawState;
@@ -74,7 +75,7 @@ public class LineEditor : MonoBehaviour
         linePos1 = Camera.main.ScreenToWorldPoint(linePos1);
         linePos2 = Camera.main.ScreenToWorldPoint(linePos2);
 
-        LineWorld.main.AddLine(linePos1, linePos2);
+        LineWorld.main.AddLine(linePos1, linePos2, lineType);
     }
 
 
@@ -166,6 +167,22 @@ public class LineEditor : MonoBehaviour
                 OnDrawLineEnd(r);
             };
             TouchKit.addGestureRecognizer(drawRecognizer);
+
+            switch (lineEditMode)
+            {
+                case LineEditMode.DrawAccelerator:
+                    lineType = LineType.LineTypes.Accelerator;
+                    break;
+                case LineEditMode.DrawBounce:
+                    lineType = LineType.LineTypes.Bounce;
+                    break;
+                case LineEditMode.DrawBrake:
+                    lineType = LineType.LineTypes.Brake;
+                    break;
+                case LineEditMode.DrawNormal:
+                    lineType = LineType.LineTypes.Normal;
+                    break;
+            }
         }
     }
 

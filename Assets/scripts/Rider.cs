@@ -103,9 +103,9 @@ public class Rider : MonoBehaviour {
 			return;
 
 		EdgeCollider2D e = c.gameObject.GetComponent<EdgeCollider2D>();
-		Accelerator a = c.gameObject.GetComponent<Accelerator>();
+		LineType a = c.gameObject.GetComponent<LineType>();
 
-		if (a)
+		if (a.lineType == LineType.LineTypes.Accelerator)
 		{
 			if (acceleration < accelerationAmount)
 				acceleration += 2f;

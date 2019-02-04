@@ -18,6 +18,11 @@ public static class Utils
      Vector2 circleCenter, float circleRadius,
      Vector2 point1, Vector2 point2)
     {
+        if ((point1-circleCenter).magnitude <= circleRadius && (point2-circleCenter).magnitude <= circleRadius)
+        {
+            return true;
+        }
+
 		Vector2 intersection1, intersection2;
         float t;
 
@@ -40,6 +45,8 @@ public static class Utils
         {
             // One solution.
             t = -b / (2 * a);
+            if (t >= 0 && t <= 1)
+                return true;
             intersection1 = new Vector2(point1.x + t * dx, point1.y + t * dy);
             intersection2 = Vector2.zero;
             return false;
@@ -50,6 +57,7 @@ public static class Utils
 		if (t >= 0 && t <= 1)
 			return true;
         intersection1 = new Vector2(point1.x + t * dx, point1.y + t * dy);
+        
         t = (float)((-b - Mathf.Sqrt(determinate)) / (2 * a));
 		if (t >= 0 && t <= 1)
 			return true;
