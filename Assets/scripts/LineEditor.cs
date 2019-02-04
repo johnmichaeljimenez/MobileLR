@@ -25,6 +25,8 @@ public class LineEditor : MonoBehaviour
     Vector3 linePos1, linePos2;
     LineDrawState lineDrawState;
 
+    public List<Command> commandStack;
+    int stackIndex;
 
 
     public float eraseRadius = 20;
@@ -32,6 +34,7 @@ public class LineEditor : MonoBehaviour
     void Awake()
     {
         TouchKit.instance.debugDrawBoundaryFrames = true;
+        ClearStack();
 
         SetEditMode(LineEditMode.DrawNormal);
     }
@@ -186,6 +189,67 @@ public class LineEditor : MonoBehaviour
         }
     }
 
+    public void AddCommand(Command c)
+    {
+        commandStack.RemoveRange(stackIndex, commandStack.Count - stackIndex - 1);
+        commandStack.Add(c);
+
+        stackIndex = commandStack.Count;
+        PrintStack();
+
+        LineWorld.main.CleanupLines();
+    }
+
+    void ClearStack()
+    {
+        commandStack = new List<Command>();
+        stackIndex = 0;
+        PrintStack();
+    }
+
+    void PrintStack()
+    {
+        print("current index: " + stackIndex.ToString() + " -- stack count: " + commandStack.Count.ToString());
+    }
+
+    public void Undo()
+    {
+        if (commandStack.Count == 0)
+        {
+            stackIndex = 0;
+            return;
+        }
+
+        stackIndex -= 1;
+        PrintStack();
+        ExecuteStack();
+    }
+
+    public void Redo()
+    {
+        if (stackIndex == commandStack.Count)
+            return;
+
+        stackIndex += 1;
+        PrintStack();
+        ExecuteStack();
+    }
+
+    public void ExecuteStack()
+    {
+        Command c = commandStack[stackIndex];
+        if (c is Command.EraseCommand)
+        {
+            Command.EraseCommand e = (Command.EraseCommand)c;
+
+            
+        }else{
+            Command.LineCommand l = (Command.LineCommand)c;
+
+
+        }
+    }
+
     public enum LineEditMode
     {
         DrawNormal, DrawAccelerator, DrawBounce, DrawBrake, Erase, Camera
@@ -195,5 +259,18 @@ public class LineEditor : MonoBehaviour
     {
         None,
         Start
+    }
+}
+
+public class Command
+{
+    public class LineCommand : Command
+    {
+        public Line createdLine;
+    }
+
+    public class EraseCommand : Command
+    {
+        public List<Line> erasedLines;
     }
 }

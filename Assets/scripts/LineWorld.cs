@@ -33,10 +33,17 @@ public class LineWorld : MonoBehaviour {
 		l.lineType = t;
 		lines.Add(l);
 		DrawLines();
+
+		Command.LineCommand c = new Command.LineCommand();
+		c.createdLine = l;
+
+		LineEditor.main.AddCommand(c);
 	}
 
 	public void RemoveLine(Vector2 erasePoint, float radius)
 	{
+		List<Line> d = new List<Line>();
+		//TODO: optimize loop
 		for (int i = lines.Count - 1; i >= 0 ; i--)
 		{
 			Line l = lines[i];
@@ -47,16 +54,32 @@ public class LineWorld : MonoBehaviour {
 			if (!e)
 				continue;
 
-			lines.Remove(l);
+			l.deleted = true;
+			d.Add(l);
 			Destroy(transform.GetChild(i).gameObject);
 		}
 
+		Command.EraseCommand c = new Command.EraseCommand();
+		c.erasedLines = d;
+		LineEditor.main.AddCommand(c);
 		HUD.main.ShowEraser(erasePoint);
 	}
 
 	public void ClearLine()
 	{
 
+	}
+
+	public void CleanupLines()
+	{
+		//delete all 'deleted' tag lines
+		for (int i = lines.Count - 1; i >= 0 ; i--)
+		{
+			if (lines[i].deleted)
+			{
+				lines.RemoveAt(i);
+			}
+		}
 	}
 
 	public void DrawLines()
@@ -68,20 +91,28 @@ public class LineWorld : MonoBehaviour {
 
 		foreach (Line i in lines)
 		{
+			if (i.deleted)
+				continue;
+
 			i.Compute();
-
-			GameObject g = Instantiate(linePrefabs[(int)i.lineType]);
-			g.transform.SetParent(transform, false);
-			g.transform.localPosition = i.midPoint;
-			g.transform.localEulerAngles = Vector3.forward * i.rotation;
-
-			LineRenderer r = g.GetComponent<LineRenderer>();
-			r.SetPosition(0, Vector3.left * (i.length/2));
-			r.SetPosition(1, Vector3.right * (i.length/2));
-
-			BoxCollider2D b = g.GetComponent<BoxCollider2D>();
-			b.size = new Vector3(i.length, 0.05f);
+			DrawLine(i);
 		}
+	}
+
+	public void DrawLine(Line i)
+	{
+
+		GameObject g = Instantiate(linePrefabs[(int)i.lineType]);
+		g.transform.SetParent(transform, false);
+		g.transform.localPosition = i.midPoint;
+		g.transform.localEulerAngles = Vector3.forward * i.rotation;
+
+		LineRenderer r = g.GetComponent<LineRenderer>();
+		r.SetPosition(0, Vector3.left * (i.length/2));
+		r.SetPosition(1, Vector3.right * (i.length/2));
+
+		BoxCollider2D b = g.GetComponent<BoxCollider2D>();
+		b.size = new Vector3(i.length, 0.05f);
 	}
 }
 
@@ -94,6 +125,8 @@ public class Line
 	public float length;
 
 	public LineType.LineTypes lineType;
+
+	public bool deleted;
 
 
 	public Line(Vector2 v1, Vector2 v2)
