@@ -40,6 +40,12 @@ public class LineWorld : MonoBehaviour {
 		LineEditor.main.AddCommand(c);
 	}
 
+	public void RestoreLine(Line l)
+	{
+		l.deleted = false;
+		DrawLine(l);
+	}
+
 	public void RemoveLine(Vector2 erasePoint, float radius)
 	{
 		List<Line> d = new List<Line>();
