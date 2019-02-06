@@ -44,6 +44,14 @@ public class HUD : MonoBehaviour
 		eraserIndicator.gameObject.SetActive(false);
 
 
+        load.SetOnClickListener(()=>{
+            SelectFilePanel.Load();
+        });
+        
+        save.SetOnClickListener(()=>{
+            SelectFilePanel.Save();
+        });
+
 		play.SetOnClickListener(()=>{ PlaybackManager.main.SetPlayback(PlaybackManager.PlayStates.Playing); });
 		pause.SetOnClickListener(()=>{ PlaybackManager.main.SetPlayback(PlaybackManager.PlayStates.Pause); });
 		stop.SetOnClickListener(()=>{ PlaybackManager.main.SetPlayback(PlaybackManager.PlayStates.Stop); });

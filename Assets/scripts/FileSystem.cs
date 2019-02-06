@@ -34,4 +34,24 @@ public class FileSystem : MonoBehaviour {
 
 		return l;
 	}
+
+	public static List<LineFile> GetFiles()
+	{
+		List<LineFile> l = new List<LineFile>();
+		foreach (string i in Directory.GetFiles(directory))
+		{
+			LineFile n = new LineFile();
+			n.fullPath = i;
+			n.fileName = Path.GetFileNameWithoutExtension(i);
+
+			l.Add(n);
+		}
+
+		return l;
+	}
+}
+
+public struct LineFile
+{
+	public string fileName, fullPath;
 }

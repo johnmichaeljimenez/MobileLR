@@ -48,7 +48,7 @@ public class LineWorld : MonoBehaviour {
 
 	public void RemoveLine(Vector2 erasePoint, float radius)
 	{
-		List<Line> d = new List<Line>();
+		// List<Line> d = new List<Line>();
 		//TODO: optimize loop
 		for (int i = lines.Count - 1; i >= 0 ; i--)
 		{
@@ -60,16 +60,18 @@ public class LineWorld : MonoBehaviour {
 			if (!e)
 				continue;
 
-			l.deleted = true;
-			d.Add(l);
+			// l.deleted = true;
+			// d.Add(l);
 			Destroy(transform.GetChild(i).gameObject);
+			lines.RemoveAt(i);
 		}
 
 		////TODO: finish this part
 		// Command.EraseCommand c = new Command.EraseCommand();
 		// c.erasedLines = d;
 		// LineEditor.main.AddCommand(c);
-		// HUD.main.ShowEraser(erasePoint);
+
+		HUD.main.ShowEraser(erasePoint);
 	}
 
 	public void ClearLine()
