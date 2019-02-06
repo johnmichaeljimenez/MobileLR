@@ -11,7 +11,7 @@ public class SelectFilePanel : MonoBehaviour {
         get
         {
             if (!_main)
-                _main = HUD.main.GetComponentInChildren<SelectFilePanel>();
+                _main = HUD.main.GetComponentInChildren<SelectFilePanel>(true);
 
             return _main;
         }
@@ -27,6 +27,16 @@ public class SelectFilePanel : MonoBehaviour {
     public static void Load()
     {
         Show(SelectionType.Load);
+    }
+
+    public void LoadSelected()
+    {
+        if (!SelectFileItem.currentSelected)
+            return;
+
+        FileSystem.OpenFile(SelectFileItem.currentSelected.myFile.fileName);
+        gameObject.SetActive(false);
+        LineWorld.main.DrawLines();
     }
     
     public static void Save()
@@ -56,7 +66,7 @@ public class SelectFilePanel : MonoBehaviour {
         }
 
         main.selectButton.SetOnClickListener(()=>{
-
+            main.LoadSelected();
         });
 
         main.deleteButton.SetOnClickListener(()=>{
