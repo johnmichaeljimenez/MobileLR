@@ -48,6 +48,11 @@ public class SelectFilePanel : MonoBehaviour {
         // Show(SelectionType.Save);
     }
 
+    public static void Delete()
+    {
+        
+    }
+
     public static void Show(SelectionType s)
     {
         SelectFileItem.Select(null);

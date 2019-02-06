@@ -74,9 +74,12 @@ public class LineWorld : MonoBehaviour {
 		HUD.main.ShowEraser(erasePoint);
 	}
 
-	public void ClearLine()
+	public void ClearLines()
 	{
+		lines = new List<Line>();
+		DrawLines();
 
+		PlaybackManager.main.SetPlayback(PlaybackManager.PlayStates.Stop);
 	}
 
 	public void CleanupLines()

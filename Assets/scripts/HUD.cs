@@ -34,6 +34,9 @@ public class HUD : MonoBehaviour
     public Button load;
     public Button save;
 
+    public Button clear;
+    public Button info;
+
     public Transform toolGroup;
 
     public Transform eraserIndicator;
@@ -50,6 +53,12 @@ public class HUD : MonoBehaviour
         
         save.SetOnClickListener(()=>{
             SelectFilePanel.Save();
+        });
+
+        clear.SetOnClickListener(()=>{
+            Messagebox.Show("Are you sure you want to clear the lines?", ()=>{
+                LineWorld.main.ClearLines();
+            });
         });
 
 		play.SetOnClickListener(()=>{ PlaybackManager.main.SetPlayback(PlaybackManager.PlayStates.Playing); });
