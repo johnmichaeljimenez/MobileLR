@@ -34,6 +34,8 @@ public class FileSystem : MonoBehaviour {
 
 		l = JsonUtility.FromJson<LineContents>(File.ReadAllText(fullPath)).lines;
 
+		MessageToast.Show("File loaded");
+
 		return l;
 	}
 
@@ -51,6 +53,7 @@ public class FileSystem : MonoBehaviour {
 		}
 
 		File.WriteAllText(fullPath, str);
+		MessageToast.Show("Save successful");
 		return true;
 	}
 

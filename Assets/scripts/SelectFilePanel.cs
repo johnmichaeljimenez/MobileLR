@@ -39,6 +39,14 @@ public class SelectFilePanel : MonoBehaviour {
         gameObject.SetActive(false);
         LineWorld.main.DrawLines();
     }
+
+    public static void Delete()
+    {
+        if (!SelectFileItem.currentSelected)
+            return;
+
+        
+    }
     
     public static void Save()
     {
@@ -46,11 +54,6 @@ public class SelectFilePanel : MonoBehaviour {
 
         //TODO: create a new filename saving system
         // Show(SelectionType.Save);
-    }
-
-    public static void Delete()
-    {
-        
     }
 
     public static void Show(SelectionType s)
