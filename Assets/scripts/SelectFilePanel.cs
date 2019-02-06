@@ -40,12 +40,16 @@ public class SelectFilePanel : MonoBehaviour {
         LineWorld.main.DrawLines();
     }
 
-    public static void Delete()
+    public void DeleteSelected()
     {
         if (!SelectFileItem.currentSelected)
             return;
 
-        
+        Messagebox.Show("Delete selected file? This cannot be undone.", ()=>{
+            FileSystem.DeleteFile(SelectFileItem.currentSelected.myFile.fullPath);
+            SelectFileItem.Select(null);
+            LoadFiles();
+        });
     }
     
     public static void Save()
@@ -56,10 +60,8 @@ public class SelectFilePanel : MonoBehaviour {
         // Show(SelectionType.Save);
     }
 
-    public static void Show(SelectionType s)
+    public static void LoadFiles()
     {
-        SelectFileItem.Select(null);
-
         for (int i = main.fileItemContainer.childCount - 1; i >= 0 ; i--)
         {
             Destroy(main.fileItemContainer.GetChild(i).gameObject);
@@ -73,13 +75,20 @@ public class SelectFilePanel : MonoBehaviour {
             SelectFileItem f = g.GetComponent<SelectFileItem>();
             f.Set(i);
         }
+    }
+
+    public static void Show(SelectionType s)
+    {
+        SelectFileItem.Select(null);
+
+        LoadFiles();
 
         main.selectButton.SetOnClickListener(()=>{
             main.LoadSelected();
         });
 
         main.deleteButton.SetOnClickListener(()=>{
-
+            main.DeleteSelected();
         });
         
         main.closeButton.SetOnClickListener(()=>{

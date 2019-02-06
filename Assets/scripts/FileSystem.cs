@@ -57,6 +57,13 @@ public class FileSystem : MonoBehaviour {
 		return true;
 	}
 
+	public static bool DeleteFile(string str)
+	{
+		File.Delete(str);
+		MessageToast.Show("File Deleted");
+		return true;
+	}
+
 	public static List<LineFile> GetFiles()
 	{
 		List<LineFile> l = new List<LineFile>();

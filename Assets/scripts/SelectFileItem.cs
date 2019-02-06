@@ -35,7 +35,8 @@ public class SelectFileItem : MonoBehaviour {
 		}
 
 		currentSelected = i;
-		currentSelected.GetComponent<Image>().color = new Color(1,1,1,0.8f);
+		if (currentSelected)
+			currentSelected.GetComponent<Image>().color = new Color(1,1,1,0.8f);
 	}
 
 }
