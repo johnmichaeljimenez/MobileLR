@@ -32,7 +32,26 @@ public class FileSystem : MonoBehaviour {
 
 		string fullPath = directory + fileName + fileExtension;
 
+		l = JsonUtility.FromJson<LineContents>(File.ReadAllText(fullPath)).lines;
+
 		return l;
+	}
+
+	public static bool SaveFile(string fileName)
+	{
+		string fullPath = directory + fileName + fileExtension;
+
+		string str = "{}";
+		if (LineWorld.main.lines.Count > 0)
+		{
+			LineContents lc = new LineContents();
+			lc.lines = LineWorld.main.lines;
+
+			str = JsonUtility.ToJson(lc);
+		}
+
+		File.WriteAllText(fullPath, str);
+		return true;
 	}
 
 	public static List<LineFile> GetFiles()
@@ -54,4 +73,10 @@ public class FileSystem : MonoBehaviour {
 public struct LineFile
 {
 	public string fileName, fullPath;
+}
+
+[System.Serializable]
+public struct LineContents
+{
+	public List<Line> lines;
 }

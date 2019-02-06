@@ -31,7 +31,10 @@ public class SelectFilePanel : MonoBehaviour {
     
     public static void Save()
     {
-        Show(SelectionType.Save);
+        FileSystem.SaveFile("test");
+
+        //TODO: create a new filename saving system
+        // Show(SelectionType.Save);
     }
 
     public static void Show(SelectionType s)
