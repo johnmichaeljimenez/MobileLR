@@ -32,12 +32,12 @@ public class LineWorld : MonoBehaviour {
 		Line l = new Line(v1, v2);
 		l.lineType = t;
 		lines.Add(l);
-		DrawLines();
+		DrawLine(l);
 
 		Command.LineCommand c = new Command.LineCommand();
 		c.createdLine = l;
 
-		LineEditor.main.AddCommand(c);
+		// LineEditor.main.AddCommand(c);
 	}
 
 	public void RestoreLine(Line l)
@@ -65,10 +65,11 @@ public class LineWorld : MonoBehaviour {
 			Destroy(transform.GetChild(i).gameObject);
 		}
 
-		Command.EraseCommand c = new Command.EraseCommand();
-		c.erasedLines = d;
-		LineEditor.main.AddCommand(c);
-		HUD.main.ShowEraser(erasePoint);
+		////TODO: finish this part
+		// Command.EraseCommand c = new Command.EraseCommand();
+		// c.erasedLines = d;
+		// LineEditor.main.AddCommand(c);
+		// HUD.main.ShowEraser(erasePoint);
 	}
 
 	public void ClearLine()
