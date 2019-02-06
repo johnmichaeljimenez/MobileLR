@@ -26,6 +26,7 @@ public class SelectFilePanel : MonoBehaviour {
 
     public static void Load()
     {
+        SelectFileItem.currentSelected = null;
         Show(SelectionType.Load);
     }
 
@@ -34,7 +35,7 @@ public class SelectFilePanel : MonoBehaviour {
         if (!SelectFileItem.currentSelected)
             return;
 
-        FileSystem.OpenFile(SelectFileItem.currentSelected.myFile.fileName);
+        LineWorld.main.lines = FileSystem.OpenFile(SelectFileItem.currentSelected.myFile.fileName);
         gameObject.SetActive(false);
         LineWorld.main.DrawLines();
     }

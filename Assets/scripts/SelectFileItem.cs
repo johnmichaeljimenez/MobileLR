@@ -15,7 +15,7 @@ public class SelectFileItem : MonoBehaviour {
 		GetComponentInChildren<Text>().text = l.fileName;
 
 		GetComponentInChildren<Button>().SetOnClickListener(()=>{
-
+			Select(this);
 		});
 	}
 
