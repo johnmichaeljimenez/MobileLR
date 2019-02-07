@@ -78,6 +78,7 @@ public class LineWorld : MonoBehaviour {
 	{
 		lines = new List<Line>();
 		DrawLines();
+		FileSystem.currentFilename = "";
 
 		PlaybackManager.main.SetPlayback(PlaybackManager.PlayStates.Stop);
 	}

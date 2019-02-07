@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class FileSystem : MonoBehaviour {
 
+	public static string currentFilename;
+
     private static FileSystem _main;
     public static FileSystem main
     {
@@ -36,6 +38,8 @@ public class FileSystem : MonoBehaviour {
 
 		MessageToast.Show("File loaded");
 
+		currentFilename = fileName;
+
 		return l;
 	}
 
@@ -51,6 +55,8 @@ public class FileSystem : MonoBehaviour {
 
 			str = JsonUtility.ToJson(lc);
 		}
+		
+		currentFilename = fileName;
 
 		File.WriteAllText(fullPath, str);
 		MessageToast.Show("Save successful");

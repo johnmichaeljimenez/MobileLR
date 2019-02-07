@@ -21,7 +21,7 @@ public class SelectFileItem : MonoBehaviour {
 
 	public static void Select(SelectFileItem i)
 	{
-		SelectFilePanel.main.deleteButton.gameObject.SetActive(i);
+		SelectFilePanel.main.deleteButton.gameObject.SetActive(i && SelectFilePanel.selectionType != SelectFilePanel.SelectionType.Save);
 		SelectFilePanel.main.selectButton.gameObject.SetActive(i);
 
 		if (!currentSelected && !i)
@@ -36,7 +36,10 @@ public class SelectFileItem : MonoBehaviour {
 
 		currentSelected = i;
 		if (currentSelected)
+		{
 			currentSelected.GetComponent<Image>().color = new Color(1,1,1,0.8f);
+			SelectFilePanel.main.OnSelect();
+		}
 	}
 
 }
