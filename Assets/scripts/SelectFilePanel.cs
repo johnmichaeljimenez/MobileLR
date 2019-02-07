@@ -26,18 +26,8 @@ public class SelectFilePanel : MonoBehaviour {
 
     public InputField inputField;
 
-    public static void Load()
-    {
-        SelectFileItem.currentSelected = null;
-
-        Show(SelectionType.Load);
-    }
-
     public void LoadSelected()
     {
-        if (!SelectFileItem.currentSelected)
-            return;
-
         if (selectionType == SelectionType.Save)
         {
             if (inputField.text == "")
@@ -48,6 +38,9 @@ public class SelectFilePanel : MonoBehaviour {
 
             return;
         }
+
+        if (!SelectFileItem.currentSelected)
+            return;
 
         LineWorld.main.lines = FileSystem.OpenFile(SelectFileItem.currentSelected.myFile.fileName);
         gameObject.SetActive(false);
@@ -75,15 +68,6 @@ public class SelectFilePanel : MonoBehaviour {
         }
     }
     
-    public static void Save()
-    {
-        main.inputField.text = FileSystem.currentFilename;
-
-        // FileSystem.SaveFile("test");
-
-        //TODO: create a new filename saving system
-        // Show(SelectionType.Save);
-    }
 
     public static void LoadFiles()
     {
@@ -110,6 +94,14 @@ public class SelectFilePanel : MonoBehaviour {
         main.inputField.gameObject.SetActive(s == SelectionType.Save);
 
         LoadFiles();
+
+        if (s == SelectionType.Save)
+        {
+            main.inputField.text = FileSystem.currentFilename;
+        }
+
+        main.selectButton.gameObject.SetActive(s == SelectionType.Save);
+
 
         main.selectButton.SetOnClickListener(()=>{
             main.LoadSelected();

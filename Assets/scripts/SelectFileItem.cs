@@ -22,7 +22,8 @@ public class SelectFileItem : MonoBehaviour {
 	public static void Select(SelectFileItem i)
 	{
 		SelectFilePanel.main.deleteButton.gameObject.SetActive(i && SelectFilePanel.selectionType != SelectFilePanel.SelectionType.Save);
-		SelectFilePanel.main.selectButton.gameObject.SetActive(i);
+		if (SelectFilePanel.selectionType == SelectFilePanel.SelectionType.Load)
+			SelectFilePanel.main.selectButton.gameObject.SetActive(i);
 
 		if (!currentSelected && !i)
 		{		

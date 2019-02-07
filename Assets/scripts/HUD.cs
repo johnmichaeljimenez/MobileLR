@@ -48,11 +48,11 @@ public class HUD : MonoBehaviour
 
 
         load.SetOnClickListener(()=>{
-            SelectFilePanel.Load();
+            SelectFilePanel.Show(SelectFilePanel.SelectionType.Load);
         });
         
         save.SetOnClickListener(()=>{
-            SelectFilePanel.Save();
+            SelectFilePanel.Show(SelectFilePanel.SelectionType.Save);
         });
 
         clear.SetOnClickListener(()=>{
